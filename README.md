@@ -10,6 +10,6 @@ Define a news story: the <b>main topic</b> of the article, so focus on the headl
 3. 
 ## Data Sources
 <b>3 News Agencies (from [Kaggle](https://www.kaggle.com/notlucasp/financial-news-headlines)):</b>
-- <b>Reuters (will be used in this project)</b>
+- Reuters
 - The Guardian
 - CNBC
