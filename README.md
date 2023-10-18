@@ -7,7 +7,7 @@ Nowadays, millions of news articles and blogs are published online every day. Ne
 Define a news story: the <b>main topic</b> of the article, so focus on the headlines.
 1. What is the duration of the shelf-life of news stories?
 2. Among news stories covering political, environmental, social issues, violence and war, which ones tend to have a longer lasting public view and which ones tend to fade away quickly?
-3. 
+
 ## Data Sources
 <b>3 News Agencies (from [Kaggle](https://www.kaggle.com/notlucasp/financial-news-headlines)):</b>
 - Reuters
