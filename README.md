@@ -1,4 +1,3 @@
-# data-440-project
 # Lifespan of News Stories: A NLP Approach to Extracting Trending News
 
 ## Project Idea
