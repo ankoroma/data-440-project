@@ -13,3 +13,70 @@ Define a news story: the <b>main topic</b> of the article, so focus on the headl
 - Reuters
 - The Guardian
 - CNBC
+
+<b>Data Structure of Reuters Dataset:</b>
+- About 32k news articles from 2018 - 2020
+- Each article contains the headline, a short description, and publishing time
+
+
+## Data Pipeline
+| Preprocessing | Keyword Extraction | News Clustering | Visualizing Trending Stories
+| ---- | --------- | --------- | ------------
+| Remove Unwanted Text | NER | Keyword Vectorization | Cluster Time Series News
+| Date Normalization | Noun Phrases | News Similarity | Visualize Top Trending Stories
+| Lemmatization | Keyword Scoring | DBSCAN Algo. | 
+|  | Keyword Filtering |  | 
+|  | Postprocessing |  | 
+
+
+## Preprocessing
+- Removed unwanted texts
+  - Non-english characters, unusual headline patterns, etc.
+```python
+ non_en_chars = {
+        "’": "'",
+        "‘": "'"
+    }
+    remove_from_title = ["BREAKING:", "[\-:] report", "[\-:] sources",  "[\-:] source", "source says", "Exclusive\:",
+                         "Factbox\:", "Timeline[\-:]",  "Instant View\:", "Explainer\:", ": Bloomberg",
+                         ": WSJ"]
+    remove_if_start_with = ['close breaking news']
+    replace_if_contain = ['click here to see']
+```
+
+- Date Normalization
+  - M/D/Y: “Jul 18 2020”
+- Lemmatization
+  - Kept stopwords for noun phrase detection (“The U.K”)
+
+
+## Keyword Extraction (main task)
+<b>Spacy: Name Entity Recognition (NER)</b>
+- Extract named entities with term frequency to reflect key points of news story (PERSON, ORG, GPE, Noun phrases, etc)
+```python
+allow_types = ['PERSON', 'GPE', 'ORG', 'NORP', 'LOC', 'FAC', 'WORK_OF_ART', 'EVENT', 'LAW', 'PRODUCT']
+```
+
+<b>Keyword Scoring Metric</b>
+- Different weights are used depending on keyword type (entity or noun phrase)
+- Keywords found in headlines weighs more than those in the content (entity = 4, noun chunks = 2, other = 1)
+```python
+def extract_keywords(cls, title, content, title_entity_weight=4, title_noun_chunk_weight=2):
+```
+
+<b>Keyword Filtering</b>
+- Remove stopwords, special characters ,  news agency in headline/content, etc. 
+```python
+remove_entities = ['REUTERS', 'Reuters', 'Thomson Reuters', 'CNBC', 'reuters story']
+```
+
+<b>Postprocessing</b>
+- Abbreviate long entities for visualization
+```python
+keywords_linking_table = {
+        "United States": "US",
+        "United Nations": "UN",
+        "European Union": "EU",
+        "United Kingdom": "UK",
+        "European Central Bank": "ECB",...}
+```
