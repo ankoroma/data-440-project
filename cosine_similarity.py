@@ -1,22 +1,22 @@
-from sklearn.feature_extraction.text import CountVectorizer # type: ignore
-from sklearn.feature_extraction.text import HashingVectorizer # type: ignore
-from sklearn.metrics.pairwise import cosine_similarity # type: ignore
-import numpy as np # type: ignore
+from sklearn.feature_extraction.text import CountVectorizer  # type: ignore
+from sklearn.feature_extraction.text import HashingVectorizer  # type: ignore
+from sklearn.metrics.pairwise import cosine_similarity  # type: ignore
+import numpy as np  # type: ignore
 
 
-def calculate_cosine_similarity(str_list_1, str_list_2=None):
+def calculate_cosine_similarity(str_list_1: list, str_list_2=None):
     """
     Return a two-dimensional array representing the cosine similarity scores between the documents in str_list_1 and str_list_2.
-    
+
     If str_list_2 is None or empty, the function calculates the similarity between str_list_1 and itself.
-    
+
     Parameters:
     - str_list_1 (list): A list of strings representing the first set of documents.
     - str_list_2 (list, optional): A list of strings representing the second set of documents. If not provided or empty, the function calculates the similarity between str_list_1 and itself.
-    
+
     Returns:
     - numpy.ndarray: A two-dimensional array of similarity scores.
-    
+
     Example Usage:
     ```
     sim = calculate_cosine_similarity(['White House', '', 'S&P'], str_list_2=['White House', 'Donald Trump', 'S P', 'S&P'])
@@ -33,14 +33,16 @@ def calculate_cosine_similarity(str_list_1, str_list_2=None):
         return np.array([[0.0]])
     if not str_list_2:
         vectors = get_vectors(str_list_1)
-        return cosine_similarity(vectors[:len(str_list_1)])
+        return cosine_similarity(vectors[: len(str_list_1)])
     else:
         vectors = get_vectors(str_list_1 + str_list_2)
         len_x = len(str_list_1)
-        return cosine_similarity(vectors[:len_x], Y=vectors[len_x:len(str_list_1 + str_list_2)])
+        return cosine_similarity(
+            vectors[:len_x], Y=vectors[len_x : len(str_list_1 + str_list_2)]
+        )
 
 
-def get_vectors(str_list, hash_threshold=500):
+def get_vectors(str_list: list, hash_threshold: int = 500):
     """
     Returns a matrix of vectors representing the text in the input strings.
 
@@ -71,11 +73,14 @@ def get_vectors(str_list, hash_threshold=500):
     return m.toarray()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import time
+
     start = time.time()
-    sim = calculate_cosine_similarity(['White House', '', 'S&P'],
-                                      str_list_2=['White House', 'Donald Trump', 'S P', 'S&P'])
+    sim = calculate_cosine_similarity(
+        ["White House", "", "S&P"],
+        str_list_2=["White House", "Donald Trump", "S P", "S&P"],
+    )
     end = time.time()
-    print("time {}".format(end-start))
+    print("time {}".format(end - start))
     print(sim)
