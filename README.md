@@ -116,7 +116,7 @@ def get_vectors(str_list, hash_threshold=500):
 
 <b>Animated Time Series Plot</b>
 - The <i>hi.gif</i> file, located in the <i>viz</i> folder, was created in R.
-  - Each frame represent the daily trending news starting from Jan 16, 2020 - Jul 18, 2020. 
+  - Each frame represents the daily trending news starting from Jan 16, 2020 - Jul 18, 2020. 
     
 
 
