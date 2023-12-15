@@ -3,33 +3,51 @@ import unicodedata
 
 
 class NewsCleaner:
-    non_en_chars = {
-        "’": "'",
-        "‘": "'"
-    }
-    remove_from_title = ["BREAKING:", "[\-:] report", "[\-:] sources",  "[\-:] source", "source says", "Exclusive\:",
-                         "Factbox\:", "Timeline[\-:]",  "Instant View\:", "Explainer\:", ": Bloomberg",
-                         ": WSJ"]
-    remove_if_start_with = ['close breaking news']
-    replace_if_contain = ['click here to see']
+    non_en_chars = {"’": "'", "‘": "'"}
+    remove_from_title = [
+        "BREAKING:",
+        "[\-:] report",
+        "[\-:] sources",
+        "[\-:] source",
+        "source says",
+        "Exclusive\:",
+        "Factbox\:",
+        "Timeline[\-:]",
+        "Instant View\:",
+        "Explainer\:",
+        ": Bloomberg",
+        ": WSJ",
+    ]
+    remove_if_start_with = ["close breaking news"]
+    replace_if_contain = ["click here to see"]
 
     @staticmethod
-    def clean_news_article(title="", content=""):
+    def clean_news_article(title: str = "", content: str = "") -> tuple:
         _c_title = NewsCleaner.clean_title(title)
         _c_content = NewsCleaner.clean_content(content)
         return _c_title, _c_content
 
     @staticmethod
-    def clean_title(raw_title):
+    def clean_title(raw_title: str) -> str:
         txt = NewsCleaner.remove_non_en_chars(raw_title)
         txt = NewsCleaner.replace_abbreviation(txt)
         p = "|".join(NewsCleaner.remove_from_title)
-        txt = re.sub(p, '', txt)
-        txt = re.sub(r'\s+', " ", txt).strip()
+        txt = re.sub(p, "", txt)
+        txt = re.sub(r"\s+", " ", txt).strip()
         return txt
 
     @staticmethod
-    def clean_content(raw_content):
+    def clean_content(raw_content: str) -> str:
+        """
+        Cleans the raw content by removing non-English characters, abbreviations,
+        short sentences, and words that start with or contain certain patterns.
+
+        Args:
+            raw_content (str): The raw content to be cleaned.
+
+        Returns:
+            str: The cleaned content.
+        """
         if not raw_content:
             return ""
         remove_if_start_with = NewsCleaner.remove_if_start_with
@@ -45,27 +63,31 @@ class NewsCleaner:
         clean3 = [l for l in clean2 if re.match(p_start, l) is None]
         # remove the words if the sentence contains certain pattern
         p_contain = r"|".join(replace_if_contain)
-        clean4 = [re.sub(p_contain, '', l) for l in clean3]
+        clean4 = [re.sub(p_contain, "", l) for l in clean3]
         clean5 = " ".join(clean4)
-        return re.sub(r'\s+', ' ', clean5).strip()
+        return re.sub(r"\s+", " ", clean5).strip()
 
     @staticmethod
-    def remove_non_en_chars(txt):
+    def remove_non_en_chars(txt: str) -> str:
         # remove non english characters
         txt = NewsCleaner.convert_latin_chars(txt)
         for char in NewsCleaner.non_en_chars.keys():
             txt = re.sub(char, NewsCleaner.non_en_chars[char], txt)
-        txt = re.sub(r'[^\x00-\x7F]+', ' ', txt)
+        txt = re.sub(r"[^\x00-\x7F]+", " ", txt)
         return txt
 
     @staticmethod
-    def convert_latin_chars(txt):
+    def convert_latin_chars(txt: str) -> str:
         # convert latin characters
-        return ''.join(char for char in unicodedata.normalize('NFKD', txt) if unicodedata.category(char) != 'Mn')
+        return "".join(
+            char
+            for char in unicodedata.normalize("NFKD", txt)
+            if unicodedata.category(char) != "Mn"
+        )
 
     @staticmethod
-    def replace_abbreviation(txt):
-        words = {'U.S.': 'US'}
+    def replace_abbreviation(txt: str) -> str:
+        words = {"U.S.": "US"}
         for w in words.keys():
             txt = re.sub(w, words[w], txt)
         return txt
@@ -73,10 +95,14 @@ class NewsCleaner:
 
 if __name__ == "__main__":
     title = "Facebook's Zuckerberg to testify before Congress: source"
-    content = "Facebook Inc Chief Executive Mark Zuckerberg plans to testify before U.S. Congress, a source briefed " \
-              "on the matter said on Tuesday, as he bows to pressure from lawmakers insisting he explain how 50 " \
-              "million users' data ended up in the hands of a political consultancy."
+    content = (
+        "Facebook Inc Chief Executive Mark Zuckerberg plans to testify before U.S. Congress, a source briefed "
+        "on the matter said on Tuesday, as he bows to pressure from lawmakers insisting he explain how 50 "
+        "million users' data ended up in the hands of a political consultancy."
+    )
 
-    cleaned_title, cleaned_content = NewsCleaner.clean_news_article(title=title, content=content)
+    cleaned_title, cleaned_content = NewsCleaner.clean_news_article(
+        title=title, content=content
+    )
     print(cleaned_title)
     print(cleaned_content)
