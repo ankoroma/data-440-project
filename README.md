@@ -1,4 +1,5 @@
 # Lifespan of News Stories: A NLP Approach to Extracting Trending News
+By Hassan Koroma
 
 ## Project Idea
 Nowadays, millions of news articles and blogs are published online every day. News data is created at the rate one cannot imagine a few years ago. Social media platforms have become the main source of news online to meet the information consumption needs of internet users. However, a large amount of news with repeated, duplicated or junk contents is also created. Therefore, there is an increasing need for automatic grouping of the news based on the contents of articles. This project will explore various NLP techniques for clustering online news and extracting the trending stories over time.
@@ -105,6 +106,19 @@ def get_vectors(str_list, hash_threshold=500):
 
 
 ## Visualizations: Timeline & Aninmated Time Series Plot
+<b>stories_visualizer.py</b>
+- Creates a trending news timeline based on news clusters.
+  - The current iteration contains news articles after Nov 15, 2019.
+  - Intervals are two weeks periods
+  - The bubbles represent a cluster and the size of the bubble is proportional to the number of news articles in that cluster.
+  - The text on the bubbles are the top keywords (based on weighted count) in that particular cluster.<br>
+
+
+<b>Animated Time Series Plot</b>
+- The <i>hi.gif</i> file, located in the <i>viz</i> folder, was created in R.
+  - Each frame represent the daily trending news starting from Jan 16, 2020 - Jul 18, 2020. 
+    
+
 
 ## Findings: Addressing [Research Questions](README.md#research-questions)
 <b>Q1: Analyzing trending news story duration</b>
@@ -169,8 +183,8 @@ streamlit run site.py
 
 ### 8. Model Output
 - After running main.py, a window should pop up with the visualization: Switch to full screen for a better view
-- The 'viz' folder holds the .png file from the visualization and the .gif file for the animated time series plot.
-- If you chose to run site.py, a streamlit site should pop up in your default browser.
+- The <i>viz</i> folder holds the .png file from the visualization and the .gif file for the animated time series plot.
+- If you choose to run site.py, a streamlit site should pop up in your default browser.
 
 ---
 ---
