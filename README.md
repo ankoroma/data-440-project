@@ -10,7 +10,7 @@ Define a news story: the <b>main topic</b> of the article, so focus on the headl
 
 ## Data Sources
 <b>3 News Agencies (from [Kaggle](https://www.kaggle.com/notlucasp/financial-news-headlines)):</b>
-- Reuters
+- Reuters (used in current iteration)
 - The Guardian
 - CNBC
 
@@ -52,7 +52,7 @@ Define a news story: the <b>main topic</b> of the article, so focus on the headl
 
 ## Keyword Extraction (main task)
 <b>Spacy: Name Entity Recognition (NER)</b>
-- Extract named entities with term frequency to reflect key points of news story (PERSON, ORG, GPE, Noun phrases, etc)
+- Extract named entities with term frequency to reflect key points of news story (i.e., POS: PERSON, ORG, GPE, Noun phrases, etc.)
 ```python
 allow_types = ['PERSON', 'GPE', 'ORG', 'NORP', 'LOC', 'FAC', 'WORK_OF_ART', 'EVENT', 'LAW', 'PRODUCT']
 ```
