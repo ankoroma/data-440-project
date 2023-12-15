@@ -1,34 +1,3 @@
-# For Peer Reviewer, please follow the steps below to successfully run the project on Mac & Linux OS:
-## 1. Clone or download the repository folder.
-## 2. Open the Terminal and navigate to the project folder then create a virtual environment
-```python
-python3 -m venv venv
-```
-## 3. Activate the virtual environment
-```python
-source venv/bin/activate
-```
-## 4. Install Dependencies
-```python
-pip install -r requirements.txt
-```
-## 5. Download the 'en_core_web_lg' pipeline from spacy (will not work without it)
-```python
-python3 -m spacy download en_core_web_lg
-```
-## 6. Run main.py file
-```python
-python3 main.py
-```
-## 7. Model Output
-- A window should pop up with the visualization: Switch to full screen for a better view
-- The .png file should also be located in the 'viz' folder
-
----
----
----
----
----
 # Lifespan of News Stories: A NLP Approach to Extracting Trending News
 
 ## Project Idea
@@ -111,3 +80,43 @@ keywords_linking_table = {
         "United Kingdom": "UK",
         "European Central Bank": "ECB",...}
 ```
+
+# Run Program on Mac & Linux OS
+- You might need to modify these steps accordingly for Windows
+### 1. Clone or download the repository folder.
+### 2. Open the Terminal and navigate to the project folder then create a virtual environment
+```python
+python3 -m venv venv
+```
+### 3. Activate the virtual environment
+```python
+source venv/bin/activate
+```
+### 4. Install Dependencies
+```python
+pip install -r requirements.txt
+```
+### 5. Download the 'en_core_web_lg' pipeline from spacy (will not work without it)
+```python
+python3 -m spacy download en_core_web_lg
+```
+### 6. Run main.py file
+```python
+python3 main.py
+```
+
+### 7. Optional: view the animated time series for trending news
+```python
+streamlit run site.py
+```
+
+### 8. Model Output
+- After running main.py, a window should pop up with the visualization: Switch to full screen for a better view
+- The .png file should also be located in the 'viz' folder
+- The streamlit site should pop up in your browser
+
+---
+---
+---
+---
+---
